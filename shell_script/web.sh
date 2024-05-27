@@ -26,7 +26,7 @@ VALIDATE () {
 
 if [ -d $LOGPATH ]
 then
-    echo "Log path available"
+    echo "$Y Log path available $N"
 else
     sudo mkdir -p $LOGPATH
 fi
