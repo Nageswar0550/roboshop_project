@@ -31,13 +31,13 @@ apt update -y &>> $LOGFILE
 
 VALIDATE $? "Updating apt repositories"
 
-apt list --installed | grep nginx
+apt list --installed | grep nginx &>> $LOGFILE
 
 if $? - ne 0
 then
     echo "Nginx is not available"
 else
     echo "Installing Nginx"
-    apt install nginx
+    apt install nginx &>> $LOGFILE
     VALIDATE $? "Installing Nginx"
 fi
