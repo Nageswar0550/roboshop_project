@@ -54,13 +54,20 @@ else
     echo "$G Nginx is already installed $N"
 fi
 
-mv /etc/nginx/nginx.conf /etc/nginx/nginx.backup.conf
+if [ -f /etc/nginx/nginx.backup.conf ]
+then
+    return 0
+else
+    mv /etc/nginx/nginx.conf /etc/nginx/nginx.backup.conf
+fi
 
 VALIDATE "Renamed to original Nginx configuration as backup file"
 
-if [ ! -d /web ]
+if [ -d /web ]
 then
-    mkdir /web
+    return 0
 else
-    echo "$Y /web directory already available $N"
+    mkdir /web
 fi
+
+VALIDATE "Created /web directory"
