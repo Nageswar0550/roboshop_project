@@ -57,13 +57,13 @@ fi
 
 if [ -d /web ]
 then
-    echo "$Y /web directory already available"
+    echo "$Y /web directory already available $N"
 else
     mkdir /web
     echo "$G /web directory created $N"
 fi
 
-git clone /tmp/https://github.com/instana/robot-shop.git
+git clone https://github.com/instana/robot-shop.git /tmp/
 mv /tmp/robot-shop/web/scripts/ /web/
 
 VALIDATE "Cloning ang copying frontend data"
