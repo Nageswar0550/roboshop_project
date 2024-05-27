@@ -13,19 +13,19 @@ ID=$(id -u)
 VALIDATE () {
     if [ $? -ne 0 ]
     then
-        echo "$1...$R FAILED $N"
+        echo  -e "$1...$R FAILED $N"
         exit 1
     else
-        echo "$1...$G SUCCESS $N"
+        echo -e "$1...$G SUCCESS $N"
     fi
 }
 
 if [ $ID -ne 0 ]
 then
-    echo "$R You are not a root user, login as root $N"
+    echo -e "$R You are not a root user, login as root $N"
     exit 1
 else
-    echo "$G You are root user and executing script $N"
+    echo -e "$G You are root user and executing script $N"
     echo "Script executing at ${DATE}" &>>$LOGFILE
 fi
 
