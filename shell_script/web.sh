@@ -10,7 +10,7 @@ DATE=$(date +%F-%T)
 ID=$(id -u)
 
 VALIDATE () {
-    if ( $? -ne 0 )
+    if( $? -ne 0 )
     then
         echo "$1...$R FAILED $N"
         exit 1
@@ -19,7 +19,7 @@ VALIDATE () {
     fi
 }
 
-if ( $ID -ne 0 )
+if( $ID -ne 0 )
 then
     echo "$R You are not a root user, login as root $N"
     exit 1
@@ -34,7 +34,7 @@ VALIDATE $? "Updating apt repositories"
 
 apt list --installed | grep nginx &>> $LOGFILE
 
-if $? - ne 0
+if( $? - ne 0 )
 then
     echo "Nginx is not available"
 else
