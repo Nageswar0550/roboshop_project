@@ -46,7 +46,7 @@ VALIDATE "Updating apt repositories"
 
 apt list --installed 2>/dev/null | grep nginx &>> $LOGFILE
 
-if [ $? - ne 0 ]
+if [ $? -ne 0 ]
 then
     echo "$Y Nginx is not available, installing $N"
     apt install nginx -y &>> $LOGFILE
