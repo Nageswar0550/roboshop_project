@@ -62,3 +62,8 @@ else
     mkdir /web
     echo "$G /web directory created $N"
 fi
+
+git clone /tmp/https://github.com/instana/robot-shop.git
+mv /tmp/robot-shop/web/scripts/ /web/
+
+VALIDATE "Cloning ang copying frontend data"
