@@ -37,7 +37,7 @@ then
     exit
 else
     echo "$G You are root user and executing script $N"
-    echo "Script executing at $TIMESTAMP" &>> $LOGFILE
+    echo " Script executing at $TIMESTAMP" &>> $LOGFILE
 fi
 
 apt update -y &>> $LOGFILE
@@ -53,3 +53,15 @@ then
 else
     echo "$G Nginx is already installed $N"
 fi
+
+mv /etc/nginx/nginx.conf /etc/nginx/nginx.backup.conf
+
+VALIDATE "Renamed to original Nginx configuration as backup file"
+
+if [ ! -d /web ]
+then
+    mkdir /web
+else
+fi
+
+VALIDATE "Created /web directory"
