@@ -7,7 +7,7 @@ N="\e[0m"
 
 TIMESTAMP=$(date +%F-%T)
 
-LOGPATH="/root/log/shell_script/"
+LOGPATH="/root/log/shell_script"
 
 LOGFILE="$LOGPATH/$0-$TIMESTAMP.log"
 
