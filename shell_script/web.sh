@@ -51,25 +51,21 @@ then
     echo "$Y Nginx is not available, installing $N"
     apt install nginx -y &>> $LOGFILE
 else
-    return 0
+    echo "$G Nginx is already available $N"
 fi
-
-VALIDATE "Installing Nginx"
 
 if [ -f /etc/nginx/nginx.backup.conf ]
 then
-    return 0
+    echo "$Y Nginx configuration backup file already available $N"
 else
     mv /etc/nginx/nginx.conf /etc/nginx/nginx.backup.conf
+    echo "$G Nginx config backup file created $N"
 fi
-
-VALIDATE "Renamed to original Nginx configuration as backup file"
 
 if [ -d /web ]
 then
-    return 0
+    echo "$Y /web directory already available"
 else
     mkdir /web
+    echo "$G /web directory created $N"
 fi
-
-VALIDATE "Created /web directory"
