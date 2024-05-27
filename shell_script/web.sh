@@ -51,8 +51,10 @@ then
     echo "$Y Nginx is not available, installing $N"
     apt install nginx -y &>> $LOGFILE
 else
-    echo "$G Nginx is already installed $N"
+    return 0
 fi
+
+VALIDATE "Installing Nginx"
 
 if [ -f /etc/nginx/nginx.backup.conf ]
 then
