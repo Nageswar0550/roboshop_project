@@ -67,7 +67,7 @@ if [ -d "/tmp/robot-shop/" ]
 then
     echo "$Y Frontend data already available $N"
 else
-    git clone https://github.com/instana/robot-shop.git /tmp/web/ &>> $LOGFILE
-    cp -r /tmp/web/robot-shop/web/static/ /web/ &>> $LOGFILE
+    git clone https://github.com/instana/robot-shop.git /tmp/robot-shop/ &>> $LOGFILE
+    cp -r /tmp/robot-shop/web/static/ /web/ &>> $LOGFILE
     echo "$G Frontend data copying $N"
 fi
