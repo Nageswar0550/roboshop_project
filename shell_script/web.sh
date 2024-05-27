@@ -68,6 +68,6 @@ then
     echo "$Y Frontend data already available $N"
 else
     git clone https://github.com/instana/robot-shop.git /tmp/robot-shop/ &>> $LOGFILE
-    mv /tmp/robot-shop/web/static/* /web &>> $LOGFILE
+    mv /tmp/robot-shop/web/static/* /web
     echo "$G Frontend data copying $N"
 fi
