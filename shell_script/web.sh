@@ -44,7 +44,7 @@ apt update -y &>> $LOGFILE
 
 VALIDATE "Updating apt repositories"
 
-apt list --installed &>/dev/null | grep nginx &>> $LOGFILE
+apt list --installed &>/dev/null | grep nginx
 
 if [ $? -ne 0 ]
 then
