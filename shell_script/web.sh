@@ -5,7 +5,8 @@ G="\e[32m"
 Y="\e[33m"
 N="\e[0m"
 
-LOGFILE="/var/log/shell_script/$0.log"
+LOGPATH="/var/log/shell_script"
+LOGFILE="$LOGPATH/$0.log"
 DATE=$(date +%F-%T)
 ID=$(id -u)
 
