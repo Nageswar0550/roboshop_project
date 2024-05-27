@@ -75,6 +75,6 @@ if [ -f /web_app/index.html ]
 then
     echo "$Y Frontend data already available $N"
 else
-    cp -r /tmp/robot-shop/web/static/* /web_app/ &>> $LOGFILE
+    cp -r /tmp/robot-shop/web/static/* /web_app/ 
     echo "$G Copied frontend data to root directory $N"
 fi
