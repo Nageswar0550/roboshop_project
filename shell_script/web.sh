@@ -63,15 +63,15 @@ else
     echo "$G /web directory created $N"
 fi
 
-if [ -f /tmp/robot-shop/ ]
+if [ -d /tmp/robot-shop/ ]
 then
     echo "$Y Frontend data already cloned $N"
 else
-    git clone https://github.com/instana/robot-shop.git /tmp/robot-shop/ &>> $LOGFILE
+    git clone https://github.com/instana/robot-shop.git /tmp/robot-shop/
     echo "$G Cloned frontend data $N"
 fi
 
-if [ -d /web/index.html ]
+if [ -f /web/index.html ]
 then
     echo "$Y Frontend data already available $N"
 else
