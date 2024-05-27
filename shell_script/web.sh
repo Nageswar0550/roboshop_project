@@ -75,6 +75,6 @@ if [ -d /web/index.html ]
 then
     echo "$Y Frontend data already available $N"
 else
-    mv /tmp/robot-shop/web/static/ /web/ &>> $LOGFILE
+    mv /tmp/robot-shop/web/static/ /web/
     echo "$G Copied frontend data to root directory $N"
 fi
