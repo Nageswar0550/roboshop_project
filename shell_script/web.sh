@@ -22,6 +22,7 @@ VALIDATE () {
 if ( $ID -ne 0 )
 then
     echo "$R You are not a root user, login as root $N"
+    exit 1
 else
     echo "$G You are root user and executing script $N"
     echo "Script executing at $DATE" &>> $LOGFILE
