@@ -5,18 +5,17 @@ G="\e[32m"
 Y="\e[33m"
 N="\e[0m"
 
-LOGPATH="/var/log/shell_script"
-LOGFILE="$LOGPATH/$0.log"
-DATE=$(date +%F-%T)
+LOGFILE="/var/log/shell_script/$0-$TIMESTAMP.log"
+TIMESTAMP=$(date +%F-%T)
 ID=$(id -u)
 
 VALIDATE () {
     if [ $? -ne 0 ]
     then
-        echo  -e "$1...$R FAILED $N"
+        echo  -e " $1...$R FAILED $N"
         exit 1
     else
-        echo -e "$1...$G SUCCESS $N"
+        echo -e " $1...$G SUCCESS $N"
     fi
 }
 
@@ -26,20 +25,19 @@ then
     exit 1
 else
     echo -e "$G You are root user and executing script $N"
-    echo "Script executing at ${DATE}" &>>$LOGFILE
+    echo "Script executing at $TIMESTAMP" &>> $LOGFILE
 fi
 
-apt update -y &>>$LOGFILE
+apt update -y &>> $LOGFILE
 
-VALIDATE $? "Updating apt repositories"
+VALIDATE "Updating apt repositories"
 
-apt list --installed 2>/dev/null | grep nginx &>>$LOGFILE
+apt list --installed 2>/dev/null | grep nginx &>> $LOGFILE
 
 if [ $? - ne 0 ]
 then
-    echo "Nginx is not available"
+    echo "$Y Nginx is not available, installing $N"
+    apt install nginx -y &>>$LOGFILE
 else
-    echo "Installing Nginx"
-    apt install nginx &>>$LOGFILE
-    VALIDATE $? "Installing Nginx"
+    echo "$G Nginx is already installed $N"
 fi
