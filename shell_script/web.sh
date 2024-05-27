@@ -63,7 +63,11 @@ else
     echo "$G /web directory created $N"
 fi
 
-git clone https://github.com/instana/robot-shop.git /tmp/
-mv /tmp/robot-shop/web/scripts/ /web/
-
-VALIDATE "Cloning ang copying frontend data"
+if [ -d /tmp/robot-shop ]
+then
+    echo "$Y Frontend data already available $N"
+else
+    git clone https://github.com/instana/robot-shop.git /tmp/
+    cp -r /tmp/robot-shop/web/static/ /web/
+    echo "$G Frontend data copying $N"
+fi
