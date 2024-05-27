@@ -25,20 +25,20 @@ then
     exit 1
 else
     echo "$G You are root user and executing script $N"
-    echo "Script executing at ${DATE}" &>> $LOGFILE
+    echo "Script executing at ${DATE}" &>>$LOGFILE
 fi
 
-apt update -y &>> $LOGFILE
+apt update -y &>>$LOGFILE
 
 VALIDATE $? "Updating apt repositories"
 
-apt list --installed 2>/dev/null | grep nginx &>> $LOGFILE
+apt list --installed 2>/dev/null | grep nginx &>>$LOGFILE
 
 if [ $? - ne 0 ]
 then
     echo "Nginx is not available"
 else
     echo "Installing Nginx"
-    apt install nginx &>> $LOGFILE
+    apt install nginx &>>$LOGFILE
     VALIDATE $? "Installing Nginx"
 fi
