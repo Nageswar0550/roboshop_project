@@ -40,9 +40,9 @@ else
     echo " Script executing at $TIMESTAMP" &>> $LOGFILE
 fi
 
-apt update -y &>> $LOGFILE
+#apt update -y &>> $LOGFILE
 
-VALIDATE "Updating apt repositories"
+#VALIDATE "Updating apt repositories"
 
 apt list --installed 2>/dev/null | grep nginx 1>/dev/null
 
