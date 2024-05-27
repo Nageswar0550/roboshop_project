@@ -62,6 +62,5 @@ if [ ! -d /web ]
 then
     mkdir /web
 else
+    echo "$Y /web directory already available $N"
 fi
-
-VALIDATE "Created /web directory"
