@@ -50,16 +50,9 @@ if [ $? -ne 0 ]
 then
     echo "$Y Nginx is not available, installing $N"
     apt install nginx -y &>> $LOGFILE
+    mv /etc/nginx/nginx.conf /etc/nginx/nginx.backup.conf
 else
     echo "$G Nginx is already available $N"
-fi
-
-if [ -f /etc/nginx/nginx.backup.conf ]
-then
-    echo "$Y Nginx configuration backup file already available $N"
-else
-    mv /etc/nginx/nginx.conf /etc/nginx/nginx.backup.conf
-    echo "$G Nginx config backup file created $N"
 fi
 
 if [ -d /web ]
