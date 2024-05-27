@@ -67,7 +67,7 @@ if [ -d /tmp/robot-shop/ ]
 then
     echo "$Y Frontend data already cloned $N"
 else
-    git clone https://github.com/instana/robot-shop.git /tmp/robot-shop/
+    git clone https://github.com/instana/robot-shop.git /tmp/robot-shop/ &>> $LOGFILE
     echo "$G Cloned frontend data $N"
 fi
 
@@ -75,6 +75,6 @@ if [ -f /web/index.html ]
 then
     echo "$Y Frontend data already available $N"
 else
-    cp -r /tmp/robot-shop/web/static/* /web_app/
+    cp -r /tmp/robot-shop/web/static/* /web_app/ &>> $LOGFILE
     echo "$G Copied frontend data to root directory $N"
 fi
