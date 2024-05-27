@@ -71,7 +71,7 @@ else
     echo "$G Cloned frontend data $N"
 fi
 
-if [ -f /web/index.html ]
+if [ -f /web_app/index.html ]
 then
     echo "$Y Frontend data already available $N"
 else
