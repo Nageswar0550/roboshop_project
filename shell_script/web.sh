@@ -7,7 +7,10 @@ N="\e[0m"
 
 TIMESTAMP=$(date +%F-%T)
 
-LOGFILE="/root/log/shell_script/$0-$TIMESTAMP.log"
+LOGPATH="/root/log/shell_script"
+
+LOGFILE="$LOGPATH/$0-$TIMESTAMP.log"
+
 
 ID=$(id -u)
 
@@ -20,6 +23,13 @@ VALIDATE () {
         echo " $1...$G SUCCESS $N"
     fi
 }
+
+if [ -d $LOGPATH ]
+then
+    echo "Log path available"
+else
+    mkdir $LOGPATH
+fi
 
 if [ $ID -ne 0 ]
 then
