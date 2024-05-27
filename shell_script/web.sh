@@ -5,7 +5,7 @@ G="\e[32m"
 Y="\e[33m"
 N="\e[0m"
 
-LOGFILE="~/$0.log"
+LOGFILE="/var/log/shell_script/$0.log"
 DATE=$(date +%F-%T)
 ID=$(id -u)
 
@@ -25,7 +25,7 @@ then
     exit 1
 else
     echo "$G You are root user and executing script $N"
-    echo "Script executing at $DATE" &>> $LOGFILE
+    echo "Script executing at ${DATE}" &>> $LOGFILE
 fi
 
 apt update -y &>> $LOGFILE
