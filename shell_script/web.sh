@@ -63,7 +63,7 @@ else
     echo "$G /web directory created $N"
 fi
 
-if [ -d /web/ ]
+if [ -f /web/index.html ]
 then
     echo "$Y Frontend data already available $N"
 else
