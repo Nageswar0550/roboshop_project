@@ -28,7 +28,7 @@ if [ -d $LOGPATH ]
 then
     echo "Log path available"
 else
-    sudo mkdir $LOGPATH
+    sudo mkdir -p $LOGPATH
 fi
 
 if [ $ID -ne 0 ]
