@@ -69,15 +69,15 @@ systemctl daemon-reload >> $LOGFILE 2>&1
 
 VALIDATE "Reloaded daemon service"
 
-systemctl enable nginx >> $LOGFILE 2>&1
+systemctl enable mongod >> $LOGFILE 2>&1
 
 VALIDATE "Enabled Nginx service"
 
-systemctl start nginx >> $LOGFILE 2>&1
+systemctl start mongod >> $LOGFILE 2>&1
 
 VALIDATE "Started Nginx service"
 
-systemctl restart nginx >> $LOGFILE 2>&1
+systemctl restart mongod >> $LOGFILE 2>&1
 
 VALIDATE "Restarted Nginx service"
 
