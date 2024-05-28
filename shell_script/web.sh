@@ -43,7 +43,7 @@ then
     exit
 else
     echo "$G You are root user and executing script $N"
-    echo " Script executing at $TIMESTAMP" &>> $LOGFILE
+    echo " Script executing at $TIMESTAMP" &>>$LOGFILE
 fi
 
 #apt update -y &>> $LOGFILE
@@ -55,7 +55,7 @@ apt list --installed 2>/dev/null | grep nginx 1>/dev/null
 if [ $? -ne 0 ]
 then
     echo "$Y Nginx is not available, installing $N"
-    apt install nginx -y &>> $LOGFILE
+    apt install nginx -y &>>$LOGFILE
 else
     echo "$Y Nginx is already available $N"
     rm /etc/nginx/nginx.conf
@@ -63,7 +63,7 @@ fi
 
 DIR_CHECK /frontend
 
-DIR_CHECK "/tmp/robot-shop" "git clone https://github.com/instana/robot-shop.git /tmp/robot-shop/" "cp -r /tmp/robot-shop/web/static/ /frontend" &>> $LOGFILE
+DIR_CHECK "/tmp/robot-shop" "git clone https://github.com/instana/robot-shop.git /tmp/robot-shop/" "cp -r /tmp/robot-shop/web/static/ /frontend" &>>$LOGFILE
 
 echo 'events{}
     http {
@@ -79,18 +79,18 @@ echo 'events{}
             add_header Pragma public;
             expires 1M;
         }
-    }' >> /etc/nginx/nginx.conf &>> $LOGFILE
+    }' >> /etc/nginx/nginx.conf &>>$LOGFILE
 
 echo "$G Created Nginx configuration file $N"
 
-systemctl daemon-reload &>> $LOGFILE
+systemctl daemon-reload &>>$LOGFILE
 
 echo "$G Reloaded daemon service $N"
 
-systemctl enable nginx &>> $LOGFILE
+systemctl enable nginx &>>$LOGFILE
 
 echo "$G Enabled Nginx service $N"
 
-systemctl start nginx &>> $LOGFILE
+systemctl start nginx &>>$LOGFILE
 
 echo "$G Started Nginx service $N"
