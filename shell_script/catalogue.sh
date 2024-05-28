@@ -9,11 +9,9 @@ timedatectl set-timezone Asia/Kolkata
 
 TIMESTAMP=$(date +%F-%T)
 
-LOGFILE="/tmp/$0-$TIMESTAMP.log"
+LOGFILE="/app/log/shell_script/$0-$TIMESTAMP.log"
 
 ID=$(id -u)
-
-echo " Script executing at $TIMESTAMP" >> $LOGFILE
 
 VALIDATE () {
     if [ $? -ne 0 ]
@@ -36,6 +34,10 @@ DIR_CHECK () {
         echo "$G $1...created $N"
     fi
 }
+
+DIR_CHECK "/app/log/shell_script/"
+
+echo " Script executing at $TIMESTAMP" >> $LOGFILE 2>&1
 
 if [ $ID -ne 0 ]
 then
