@@ -9,7 +9,7 @@ TIMESTAMP=$(date +%F-%T)
 
 LOGPATH="/root/log/shell_script"
 
-LOGFILE="$LOGPATH/$0-$TIMESTAMP.log"
+LOGFILE="/root/log/shell_script/$0-$TIMESTAMP.log"
 
 ID=$(id -u)
 
