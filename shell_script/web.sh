@@ -65,20 +65,21 @@ DIR_CHECK /frontend
 
 DIR_CHECK "/tmp/robot-shop" "git clone https://github.com/instana/robot-shop.git /tmp/robot-shop/" "cp -r /tmp/robot-shop/web/static/ /frontend" &>> $LOGFILE
 
-echo 'http {
-    include /etc/nginx/mime.types;
+echo 'events{}
+    http {
+        include /etc/nginx/mime.types;
 
-    server {
-        listen 80;
-        server_name localhost;
+        server {
+            listen 80;
+            server_name localhost;
 
-        root /frontend/static/;
+            root /frontend/static/;
 
-        add_header Cache-Control public;
-        add_header Pragma public;
-        expires 1M;
-    }
-}' >> /etc/nginx/nginx.conf &>> $LOGFILE
+            add_header Cache-Control public;
+            add_header Pragma public;
+            expires 1M;
+        }
+    }' >> /etc/nginx/nginx.conf &>> $LOGFILE
 
 echo "$G Created Nginx configuration file $N"
 
