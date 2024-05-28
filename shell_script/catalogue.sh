@@ -95,7 +95,7 @@ else
         Description=Catalogue service
         
         [Service]
-        User=
+        User=roboshop
         Environment=MONGO_URL=mongo://172.31.18.210:27017/catalogue
         Environment=CATALOGUE_SERVER_PORT=8080
         ExecStart=/bin/node /app/server.js
