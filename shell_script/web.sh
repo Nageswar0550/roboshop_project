@@ -56,12 +56,12 @@ if [ $? -ne 0 ]
 then
     echo "$Y Nginx is not available, installing $N"
     apt install nginx -y &>> $LOGFILE
-    mv /etc/nginx/nginx.conf /etc/nginx/nginx.backup.conf
+    rm /etc/nginx/nginx.conf /etc/nginx/nginx.conf.backup
 else
     echo "$Y Nginx is already available $N"
 fi
 
-DIR_CHECK /web
+DIR_CHECK /frontend
 
 DIR_CHECK "/tmp/robot-shop" "git clone https://github.com/instana/robot-shop.git /tmp/robot-shop/" "cp -r /tmp/robot-shop/web/static/ /frontend" &>> $LOGFILE
 
