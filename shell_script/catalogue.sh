@@ -52,12 +52,13 @@ apt list --installed 2>/dev/null | grep nodejs 1>dev/null
 if [ $? -ne 0 ]
 then
     echo " Nodejs is not available and installing...$G Success $N"
+    apt update -y >> $LOGFILE 2>&1
     apt install nodejs -y >> $LOGFILE 2>&1
 else
     echo " Nodejs is already available...$Y Skipping $N"
 fi
 
-id roboshop
+id roboshop >> $LOGFILE 2>&1
 
 if [ $? -ne 0 ]
 then
