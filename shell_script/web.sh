@@ -55,9 +55,9 @@ if [ $? -ne 0 ]
 then
     echo " Nginx is not available and installing...$G Success $N"
     apt install nginx -y >> $LOGFILE 2>&1
+    rm /etc/nginx/nginx.conf
 else
     echo " Nginx is already available...$Y Skipping $N"
-    rm /etc/nginx/nginx.conf
 fi
 
 DIR_CHECK /frontend
