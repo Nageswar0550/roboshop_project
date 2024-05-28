@@ -28,12 +28,12 @@ VALIDATE () {
 DIR_CHECK () {
     if [ -d $1 ]
     then
-        echo "$Y $1...available $N"
+        echo "$1 available...$Y Skipping $N"
     else
         mkdir -p $1
         $2
         $3
-        echo "$G $1...created $N"
+        echo "$1 created...$G Success $N"
     fi
 }
 
