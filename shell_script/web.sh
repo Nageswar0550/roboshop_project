@@ -9,7 +9,7 @@ timedatectl set-timezone Asia/Kolkata
 
 TIMESTAMP=$(date +%F-%T)
 
-LOGFILE="/tmp/$0-$TIMESTAMP.log"
+LOGFILE="/frontend/log/shell_script/$0-$TIMESTAMP.log"
 
 ID=$(id -u)
 
@@ -62,7 +62,7 @@ fi
 
 DIR_CHECK /frontend
 
-DIR_CHECK "/tmp/robot-shop" "git clone https://github.com/instana/robot-shop.git /tmp/robot-shop/" "cp -r /tmp/robot-shop/web/static/ /frontend" >> $LOGFILE 2>&1
+DIR_CHECK "/tmp/robot-shop" "git clone https://github.com/instana/robot-shop.git /tmp/robot-shop/" "cp -r /tmp/robot-shop/web/static/ /frontend"
 
 if [ -f "/etc/nginx/nginx.conf" ]
 then
