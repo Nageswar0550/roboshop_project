@@ -78,7 +78,7 @@ echo 'events{}
             add_header Pragma public;
             expires 1M;
         }
-    }' >> /etc/nginx/nginx.conf >> $LOGFILE 2>&1
+    }' >> /etc/nginx/nginx.conf
 
 VALIDATE "Created Nginx configuration file"
 
