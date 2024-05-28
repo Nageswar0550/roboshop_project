@@ -11,7 +11,6 @@ LOGPATH="/root/log/shell_script"
 
 LOGFILE="$LOGPATH/$0-$TIMESTAMP.log"
 
-
 ID=$(id -u)
 
 VALIDATE () {
@@ -24,12 +23,19 @@ VALIDATE () {
     fi
 }
 
-if [ -d $LOGPATH ]
-then
-    echo "$Y Log path available $N"
-else
-    sudo mkdir -p $LOGPATH
-fi
+DIR_CHECK () {
+    if [ -d $1 ]
+    then
+        echo "$Y $1...available $N"
+    else
+        mkdir $1
+        $2
+        $3
+        echo "$G $1...created $N"
+    fi
+}
+
+DIR_CHECK $LOGPATH
 
 if [ $ID -ne 0 ]
 then
@@ -52,29 +58,38 @@ then
     apt install nginx -y &>> $LOGFILE
     mv /etc/nginx/nginx.conf /etc/nginx/nginx.backup.conf
 else
-    echo "$G Nginx is already available $N"
+    echo "$Y Nginx is already available $N"
 fi
 
-if [ -d /web_app ]
-then
-    echo "$Y /web directory already available $N"
-else
-    mkdir /web_app
-    echo "$G /web directory created $N"
-fi
+DIR_CHECK /web
 
-if [ -d /tmp/robot-shop/ ]
-then
-    echo "$Y Frontend data already cloned $N"
-else
-    git clone https://github.com/instana/robot-shop.git /tmp/robot-shop/ &>> $LOGFILE
-    echo "$G Cloned frontend data $N"
-fi
+DIR_CHECK "/tmp/robot-shop" "git clone https://github.com/instana/robot-shop.git /tmp/robot-shop/" "cp -r /tmp/robot-shop/web/static/ /frontend" &>> $LOGFILE
 
-if [ -f /web_app/index.html ]
-then
-    echo "$Y Frontend data already available $N"
-else
-    cp -r /tmp/robot-shop/web/static/* /web_app/ 
-    echo "$G Copied frontend data to root directory $N"
-fi
+echo 'http {
+    include /etc/nginx/mime.types;
+
+    server {
+        listen 80;
+        server_name localhost;
+
+        root /frontend/static/;
+
+        add_header Cache-Control public;
+        add_header Pragma public;
+        expires 1M;
+    }
+}' >> /etc/nginx/nginx.conf
+
+echo "$G Created Nginx configuration file $N"
+
+systemctl daemon-reload
+
+echo "$G Reloaded daemon service $N"
+
+systemctl enable nginx
+
+echo "$G Enabled Nginx service $N"
+
+systemctl start nginx
+
+echo "$G Started Nginx service $N"
