@@ -9,7 +9,7 @@ TIMESTAMP=$(date +%F-%T)
 
 LOGPATH="/root/log/shell_script/web"
 
-LOGFILE=$LOGPATH/$0-$TIMESTAMP.log"
+LOGFILE="$LOGPATH/$0-$TIMESTAMP.log"
 
 mkdir $LOGPATH &>/dev/null
 
