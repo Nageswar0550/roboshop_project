@@ -7,9 +7,7 @@ N="\e[0m"
 
 TIMESTAMP=$(date +%F-%T)
 
-LOGPATH="/root/log/shell_script"
-
-LOGFILE="/root/log/shell_script/$0-$TIMESTAMP.log"
+LOGFILE="/root/log/shell_script/web/$(basename $0)-$TIMESTAMP.log"
 
 ID=$(id -u)
 
@@ -34,8 +32,6 @@ DIR_CHECK () {
         echo "$G $1...created $N"
     fi
 }
-
-DIR_CHECK $LOGPATH
 
 if [ $ID -ne 0 ]
 then
