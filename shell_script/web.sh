@@ -28,7 +28,7 @@ DIR_CHECK () {
     then
         echo "$Y $1...available $N"
     else
-        mkdir $1
+        mkdir -p $1
         $2
         $3
         echo "$G $1...created $N"
@@ -78,18 +78,18 @@ echo 'http {
         add_header Pragma public;
         expires 1M;
     }
-}' >> /etc/nginx/nginx.conf
+}' >> /etc/nginx/nginx.conf &>> $LOGFILE
 
 echo "$G Created Nginx configuration file $N"
 
-systemctl daemon-reload
+systemctl daemon-reload &>> $LOGFILE
 
 echo "$G Reloaded daemon service $N"
 
-systemctl enable nginx
+systemctl enable nginx &>> $LOGFILE
 
 echo "$G Enabled Nginx service $N"
 
-systemctl start nginx
+systemctl start nginx &>> $LOGFILE
 
 echo "$G Started Nginx service $N"
