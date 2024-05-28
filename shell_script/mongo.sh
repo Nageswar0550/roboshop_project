@@ -53,9 +53,7 @@ if [ $? -ne 0 ]
 then
     echo " Mongodb is not available and installing...$G Success $N"
     apt install gnupg curl -y >> $LOGFILE 2>&1
-    curl '-fsSL https://www.mongodb.org/static/pgp/server-7.0.asc | 
-            sudo gpg -o /usr/share/keyrings/mongodb-server-7.0.gpg 
-            --dearmor' >> $LOGFILE 2>&1
+    curl -fsSL https://www.mongodb.org/static/pgp/server-7.0.asc | sudo gpg -o /usr/share/keyrings/mongodb-server-7.0.gpg --dearmor >> $LOGFILE 2>&1
     echo "deb [ arch=amd64,arm64 signed-by=/usr/share/keyrings/mongodb-server-7.0.gpg ] https://repo.mongodb.org/apt/ubuntu jammy/mongodb-org/7.0 multiverse" | sudo tee /etc/apt/sources.list.d/mongodb-org-7.0.list >> $LOGFILE 2>&1
     apt update -y >> $LOGFILE 2>&1
     apt install -y mongodb-org >> $LOGFILE 2>&1
