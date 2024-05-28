@@ -53,10 +53,10 @@ apt list --installed 2>/dev/null | grep nginx 1>/dev/null
 
 if [ $? -ne 0 ]
 then
-    echo "Nginx is not available...$Y installing $N"
+    echo " Nginx is not available and installing...$G Success $N"
     apt install nginx -y >> $LOGFILE 2>&1
 else
-    echo "Nginx is already available...$Y Success$N"
+    echo " Nginx is already available...$Y Skipping $N"
     rm /etc/nginx/nginx.conf
 fi
 
