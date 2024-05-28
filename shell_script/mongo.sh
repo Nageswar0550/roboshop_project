@@ -65,6 +65,10 @@ sed -i 's/127.0.0.1/0.0.0.0/' /etc/mongod.conf
 
 VALIDATE "Chaned mongodb configuration"
 
+systemctl restart mongod >> $LOGFILE 2>&1
+
+VALIDATE "Restarted Nginx service"
+
 DIR_CHECK "/tmp/robot-shop" "git clone https://github.com/instana/robot-shop.git /tmp/robot-shop/"
 
 VALIDATE "Cloned mongo data"
