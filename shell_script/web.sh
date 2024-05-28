@@ -99,3 +99,7 @@ VALIDATE "Enabled Nginx service"
 systemctl start nginx >> $LOGFILE 2>&1
 
 VALIDATE "Started Nginx service"
+
+systemctl start nginx >> $LOGFILE 2>&1
+
+VALIDATE "Restarted Nginx service"
