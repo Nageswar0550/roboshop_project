@@ -13,8 +13,6 @@ LOGFILE="/frontend/log/shell_script/$0-$TIMESTAMP.log"
 
 ID=$(id -u)
 
-echo " Script executing at $TIMESTAMP" >> $LOGFILE 2>&1
-
 VALIDATE () {
     if [ $? -ne 0 ]
     then
@@ -36,6 +34,10 @@ DIR_CHECK () {
         echo "$1 created...$G Success $N"
     fi
 }
+
+DIR_CHECK "/frontend/log/shell_script"
+
+echo " Script executing at $TIMESTAMP" >> $LOGFILE 2>&1
 
 if [ $ID -ne 0 ]
 then
