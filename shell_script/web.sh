@@ -81,16 +81,16 @@ echo 'events{}
         }
     }' >> /etc/nginx/nginx.conf &>>$LOGFILE
 
-echo "$G Created Nginx configuration file $N"
+VALIDATE "Created Nginx configuration file"
 
 systemctl daemon-reload &>>$LOGFILE
 
-echo "$G Reloaded daemon service $N"
+VALIDATE "Reloaded daemon service"
 
 systemctl enable nginx &>>$LOGFILE
 
-echo "$G Enabled Nginx service $N"
+VALIDATE "Enabled Nginx service"
 
 systemctl start nginx &>>$LOGFILE
 
-echo "$G Started Nginx service $N"
+VALIDATE "Started Nginx service"
