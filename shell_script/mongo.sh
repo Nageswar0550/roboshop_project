@@ -65,6 +65,10 @@ sed -i 's/127.0.0.1/0.0.0.0/' /etc/mongod.conf
 
 VALIDATE "Chaned mongodb configuration"
 
+git clone https://github.com/instana/robot-shop.git /tmp/
+
+VALIDATE "Cloned mongo data"
+
 systemctl daemon-reload >> $LOGFILE 2>&1
 
 VALIDATE "Reloaded daemon service"
