@@ -45,9 +45,9 @@ else
     echo "$G You are root user and executing script $N"
 fi
 
-#apt update -y >> $LOGFILE 2>&1
+apt update -y >> $LOGFILE 2>&1
 
-#VALIDATE "Updating apt repositories"
+VALIDATE "Updating apt repositories"
 
 apt list --installed 2>/dev/null | grep nginx 1>/dev/null
 
