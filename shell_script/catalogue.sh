@@ -47,7 +47,7 @@ else
     echo "$G You are root user and executing script $N"
 fi
 
-apt list --installed 2>/dev/null | grep nodejs 1>dev/null
+apt list --installed 2>/dev/null | grep nodejs 1>/dev/null
 
 if [ $? -ne 0 ]
 then
@@ -66,14 +66,14 @@ then
     useradd -r roboshop
     exit
 else
-    echo " User already available... $G Skipping $N"
+    echo " User already available... $Y Skipping $N"
 fi
 
 DIR_CHECK /app
 
 DIR_CHECK "/tmp/robot-shop" "git clone https://github.com/instana/robot-shop.git /tmp/robot-shop/" "cp -r /tmp/robot-shop/catalogue/*.js* /app" >> $LOGFILE 2>&1
 
-apt list --installed 2>/dev/null | grep npm 1>dev/null
+apt list --installed 2>/dev/null | grep npm 1>/dev/null
 
 if [ $? -ne 0 ]
 then
@@ -87,19 +87,23 @@ cd /app && npm install >> $LOGFILE 2>&1
 
 VALIDATE "Building and running app"
 
-echo '[Unit]
-	Description=Catalogue service
-	
-	[Service]
-	User=
-	Environment=MONGO_URL=mongo://172.31.18.210:27017/catalogue
-	Environment=CATALOGUE_SERVER_PORT=8080
-	ExecStart=/bin/node server.js
-	
-	[Install]
-	WantedBy=multi-user.target' > /etc/systemd/system/catalogue.service
-
-VALIDATE "Created catalogue service file"
+if [ -f "/etc/systemd/system/catalogue.service" ]
+then
+    echo "Catalogue service file available...$Y Skipping$N"
+else 
+    echo '[Unit]
+        Description=Catalogue service
+        
+        [Service]
+        User=
+        Environment=MONGO_URL=mongo://172.31.18.210:27017/catalogue
+        Environment=CATALOGUE_SERVER_PORT=8080
+        ExecStart=/bin/node /app/server.js
+        
+        [Install]
+        WantedBy=multi-user.target' > /etc/systemd/system/catalogue.service
+    echo "Catalogue service file created...$G Success$N"
+fi
 
 systemctl daemon-reload >> $LOGFILE 2>&1
 
