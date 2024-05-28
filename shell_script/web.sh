@@ -7,7 +7,11 @@ N="\e[0m"
 
 TIMESTAMP=$(date +%F-%T)
 
-LOGFILE="/root/log/shell_script/web/$(basename $0)-$TIMESTAMP.log"
+LOGPATH="/root/log/shell_script/web"
+
+LOGFILE=$LOGPATH/$0-$TIMESTAMP.log"
+
+mkdir $LOGPATH &>/dev/null
 
 ID=$(id -u)
 
