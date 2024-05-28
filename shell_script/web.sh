@@ -9,7 +9,7 @@ timedatectl set-timezone Asia/Kolkata
 
 TIMESTAMP=$(date +%F-%T)
 
-LOGFILE="tmp/$0-$TIMESTAMP.log"
+LOGFILE="/tmp/$0-$TIMESTAMP.log"
 
 ID=$(id -u)
 
