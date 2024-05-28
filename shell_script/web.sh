@@ -64,7 +64,7 @@ fi
 
 DIR_CHECK /frontend
 
-DIR_CHECK "/tmp/robot-shop" "git clone https://github.com/instana/robot-shop.git /tmp/robot-shop/" "cp -r /tmp/robot-shop/web/static/ /frontend"
+DIR_CHECK "/tmp/robot-shop" "git clone https://github.com/instana/robot-shop.git /tmp/robot-shop/" "cp -r /tmp/robot-shop/web/static/ /frontend" >> $LOGFILE 2>&1
 
 if [ -f "/etc/nginx/nginx.conf" ]
 then
@@ -102,6 +102,6 @@ systemctl start nginx >> $LOGFILE 2>&1
 
 VALIDATE "Started Nginx service"
 
-systemctl start nginx >> $LOGFILE 2>&1
+systemctl restart nginx >> $LOGFILE 2>&1
 
 VALIDATE "Restarted Nginx service"
