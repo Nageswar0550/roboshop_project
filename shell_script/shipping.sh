@@ -61,6 +61,6 @@ apt install default-jre -y
 
 VALIDATE "Installation java"
 
-apt install mavan -y
+apt install maven -y
 
 VALIDATE "Installation maven"
