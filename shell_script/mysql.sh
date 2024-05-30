@@ -1,46 +1,55 @@
 #!/bin/bash
 
-R="\e[31m"
-Y="\e[32m"
-G="\e[33m"
-N="\e[0m"
-
-timedatectl set-timezone Asia/Kolkata
-
-TIMESTAMP=$(date +%F-%T)
-
-LOGFILE="/app/log/shell_script/$0-$TIMESTAMP.log"
-
 ID=$(id -u)
+R="\e[31m"
+G="\e[32m"
+Y="\e[33m"
+N="\e[0m"
+MONGDB_HOST=mongodb.daws76s.online
 
-VALIDATE () {
-    if [ $? -ne 0 ]
+TIMESTAMP=$(date +%F-%H-%M-%S)
+LOGFILE="/tmp/$0-$TIMESTAMP.log"
+
+echo "script stareted executing at $TIMESTAMP" &>> $LOGFILE
+
+VALIDATE(){
+    if [ $1 -ne 0 ]
     then
-        echo  " $1...$R FAILED $N"
-        exit
+        echo -e "$2 ... $R FAILED $N"
+        exit 1
     else
-        echo " $1...$G SUCCESS $N"
+        echo -e "$2 ... $G SUCCESS $N"
     fi
 }
 
-echo " Script executing at $TIMESTAMP" >> $LOGFILE 2>&1
-
 if [ $ID -ne 0 ]
 then
-    echo "$R You are not a root user, login as root $N"
-    exit 1
+    echo -e "$R ERROR:: Please run this script with root access $N"
+    exit 1 # you can give other than 0
 else
-    echo "$G You are root user and executing script $N"
-fi
+    echo "You are root user"
+fi # fi means reverse of if, indicating condition end
 
-apt list --installed 2>/dev/null | grep mysql-server 1>/dev/null >> $LOGFILE 2>&1
+dnf module disable mysql -y &>> $LOGFILE
 
-if [ $? -ne 0 ]
-then
-    apt install mysql-server -y
-    VALIDATE "Mysql installation"
-else
-    echo "Mysql is already available... $Y Skipping$N"
-fi
+VALIDATE $? "Disable current MySQL version"
 
-mysql_secure_installation -uroot -pRoboShop@1 -Y #this password is dummy password, it is not related to any project.
+cp mysql.repo /etc/yum.repos.d/mysql.repo &>> $LOGFILE
+
+VALIDATE $? "Copied MySQl repo"
+
+dnf install mysql-community-server -y &>> $LOGFILE
+
+VALIDATE $? "Installing MySQL Server"
+
+systemctl enable mysqld &>> $LOGFILE 
+
+VALIDATE $? "Enabling MySQL Server"
+
+systemctl start mysqld &>> $LOGFILE
+
+VALIDATE $? "Starting  MySQL Server" 
+
+mysql_secure_installation --set-root-pass RoboShop@1 &>> $LOGFILE
+
+VALIDATE $? "Setting  MySQL root password"
