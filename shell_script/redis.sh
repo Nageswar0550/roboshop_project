@@ -51,11 +51,11 @@ apt list --installed 2>/dev/null | grep redis-server 1>/dev/null
 
 if [ $? -ne 0 ]
 then
-    echo " Redis is already available... $Y Skipping$N"
-else
     apt update -y >> $LOGFILE 2>&1
     apt install redis-server -y >> $LOGFILE 2>&1
     echo " Redis is installing... $G Success$N"
+else
+    echo " Redis is already available... $Y Skipping$N"
 fi
 
 sed -i 's/127.0.0.1/0.0.0.0/g' /etc/redis/redis.conf >> $LOGFILE 2>&1
