@@ -70,9 +70,9 @@ systemctl daemon-reload >> $LOGFILE 2>&1
 
 VALIDATE "Reloaded daemon service"
 
-systemctl enable redis >> $LOGFILE 2>&1
+#systemctl enable redis >> $LOGFILE 2>&1
 
-VALIDATE "Enabled redis service"
+#VALIDATE "Enabled redis service"
 
 systemctl start redis >> $LOGFILE 2>&1
 
