@@ -97,7 +97,7 @@ else
         [Service]
         User=roboshop
         Environment=MONGO_URL=mongo://172.31.18.210:27017/user
-        Environment=REDIS_HOST=
+        Environment=REDIS_HOST=172.31.17.16
         ExecStart=/bin/node /app/server.js
         
         [Install]
