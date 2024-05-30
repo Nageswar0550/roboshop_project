@@ -71,7 +71,7 @@ fi
 
 DIR_CHECK /app
 
-DIR_CHECK "/tmp/robot-shop" "git clone https://github.com/instana/robot-shop.git /tmp/robot-shop/" "cp -r /tmp/robot-shop/user/*.js* /app" >> $LOGFILE 2>&1
+DIR_CHECK "/tmp/robot-shop" "git clone https://github.com/instana/robot-shop.git /tmp/robot-shop/" "cp -r /tmp/robot-shop/cart/*.js* /app" >> $LOGFILE 2>&1
 
 apt list --installed 2>/dev/null | grep npm 1>/dev/null
 
