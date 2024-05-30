@@ -64,3 +64,5 @@ VALIDATE "Installation java"
 apt install maven -y
 
 VALIDATE "Installation maven"
+
+mvn clean package
