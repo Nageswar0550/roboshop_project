@@ -71,7 +71,7 @@ fi
 
 DIR_CHECK /app
 
-DIR_CHECK "/tmp/robot-shop" "git clone https://github.com/instana/robot-shop.git /tmp/robot-shop/" "cp -r /tmp/robot-shop/catalogue/*.js* /app" >> $LOGFILE 2>&1
+DIR_CHECK "/tmp/robot-shop" "git clone https://github.com/instana/robot-shop.git /tmp/robot-shop/" "cp -r /tmp/robot-shop/user/*.js* /app" >> $LOGFILE 2>&1
 
 apt list --installed 2>/dev/null | grep npm 1>/dev/null
 
@@ -87,40 +87,36 @@ cd /app && npm install >> $LOGFILE 2>&1
 
 VALIDATE "Building and running app"
 
-if [ -f "/etc/systemd/system/catalogue.service" ]
+if [ -f "/etc/systemd/system/user.service" ]
 then
-    echo "Catalogue service file available...$Y Skipping$N"
+    echo "user service file available...$Y Skipping$N"
 else 
     echo '[Unit]
-        Description=Catalogue service
+        Description=user service
         
         [Service]
         User=roboshop
-        Environment=MONGO_URL=mongo://172.31.18.210:27017/catalogue
-        Environment=CATALOGUE_SERVER_PORT=8080
+        Environment=MONGO_URL=mongo://172.31.18.210:27017/user
+        Environment=REDIS_HOST=
         ExecStart=/bin/node /app/server.js
         
         [Install]
-        WantedBy=multi-user.target' > /etc/systemd/system/catalogue.service
-    echo "Catalogue service file created...$G Success$N"
+        WantedBy=multi-user.target' > /etc/systemd/system/user.service
+    echo "user service file created...$G Success$N"
 fi
 
 systemctl daemon-reload >> $LOGFILE 2>&1
 
 VALIDATE "Reloaded daemon service"
 
-systemctl enable catalogue >> $LOGFILE 2>&1
+systemctl enable user >> $LOGFILE 2>&1
 
-VALIDATE "Enabled catalogue service"
+VALIDATE "Enabled user service"
 
-systemctl start catalogue >> $LOGFILE 2>&1
+systemctl start user >> $LOGFILE 2>&1
 
-VALIDATE "Started catalogue service"
+VALIDATE "Started user service"
 
-systemctl restart catalogue >> $LOGFILE 2>&1
+systemctl restart user >> $LOGFILE 2>&1
 
-VALIDATE "Restarted catalogue service"
-
-mongosh --host 172.31.18.210 < /app/catalogue.js
-
-VALIDATE "Loaded catalogue data to mongodb"
+VALIDATE "Restarted user service"
