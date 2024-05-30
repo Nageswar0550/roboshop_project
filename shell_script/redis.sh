@@ -35,7 +35,7 @@ DIR_CHECK () {
     fi
 }
 
-DIR_CHECK "/frontend/log/shell_script"
+DIR_CHECK "/redis/log/shell_script"
 
 echo " Script executing at $TIMESTAMP" >> $LOGFILE 2>&1
 
