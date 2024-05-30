@@ -53,6 +53,10 @@ DIR_CHECK "/tmp/robot-shop" "git clone https://github.com/instana/robot-shop.git
 
 cd /app
 
+apt update -y
+
+VALIDATE "Updating repos"
+
 apt install default-jre -y
 
 VALIDATE "Installation java"
