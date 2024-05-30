@@ -43,4 +43,4 @@ else
     echo "Mysql is already available... $Y Skipping$N"
 fi
 
-mysql_secure_installation -uroot -pRoboShop@1
+mysql_secure_installation -uroot -pRoboShop@1 -Y
