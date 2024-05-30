@@ -66,7 +66,7 @@ sed -i 's/protected-mode yes/protected-mode no/'  /etc/redis/redis.conf >> $LOGF
 
 VALIDATE "Disabled redis protection mode"
 
-ystemctl daemon-reload >> $LOGFILE 2>&1
+systemctl daemon-reload >> $LOGFILE 2>&1
 
 VALIDATE "Reloaded daemon service"
 
