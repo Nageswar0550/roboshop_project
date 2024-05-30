@@ -89,10 +89,10 @@ systemctl restart mongod >> $LOGFILE 2>&1
 
 VALIDATE "Restarted Nginx service"
 
-mongosh --host 127.0.0.1 </tmp/robot-shop/mongo/users.js
+mongosh --host 172.31.18.210 </tmp/robot-shop/mongo/users.js
 
 VALIDATE "Loaded user data"
 
-mongosh --host 127.0.0.1 </tmp/robot-shop/mongo/catalogue.js
+mongosh --host 172.31.18.210 </tmp/robot-shop/mongo/catalogue.js
 
 VALIDATE "Loaded catalogue data"
