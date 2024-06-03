@@ -1,6 +1,6 @@
 #!/bin/bash
 
-INSTANCE_NAME={"web","mongo","mysql","rabbitmq","catalogue","user","cart","shipping","payment"}
+INSTANCE_NAME=("web" "mongo" "mysql" "rabbitmq" "catalogue" "user" "cart" "shipping" "payment")
 
 for  i in "${INSTANCE_NAME[@]}"
 do
