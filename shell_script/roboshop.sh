@@ -33,8 +33,8 @@ do
         '
 done
 
-echo "[$INSTANCES[@]]
-      $INSTANCES[@].$DOMAIN_NAME" >> ~/inventory.ini 
+echo "[${INSTANCES[@]}] \
+      ${INSTANCES[@]}.$DOMAIN_NAME" >> ~/inventory.ini 
 
 ansible -i ~/inventory.ini all -m command -a "sed -i 's/mirrorlist/#mirrorlist/g' /etc/yum.repos.d/CentOS-*"
 
