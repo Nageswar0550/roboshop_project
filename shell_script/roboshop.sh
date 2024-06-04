@@ -36,6 +36,6 @@ done
 echo "[$INSTANCES[@]]
       $INSTANCES[@].$DOMAIN_NAME" >> ~/inventory.ini 
 
-ansible -i inventory "$IP_ADDRESS" -m command -a "sed -i 's/mirrorlist/#mirrorlist/g' /etc/yum.repos.d/CentOS-*"
+ansible -i inventory "$IP_ADDRESS", all -m command -a "sed -i 's/mirrorlist/#mirrorlist/g' /etc/yum.repos.d/CentOS-*"
 
-ansible -i inventory "$IP_ADDRESS" -m command -a "sed -i 's|#baseurl=http://mirror.centos.org|baseurl=http://vault.centos.org|g' /etc/yum.repos.d/CentOS-*"
+ansible -i inventory "$IP_ADDRESS", all -m command -a "sed -i 's|#baseurl=http://mirror.centos.org|baseurl=http://vault.centos.org|g' /etc/yum.repos.d/CentOS-*"
