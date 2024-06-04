@@ -34,7 +34,7 @@ do
 done
 
 echo "[$INSTANCES[@]]
-      $INSTANCES[@].$DOMAIN_NAME >> /home/centos/inventory.ini 
+      $INSTANCES[@].$DOMAIN_NAME" >> ~/inventory.ini 
 
 ansible -i inventory "$IP_ADDRESS" -m command -a "sed -i 's/mirrorlist/#mirrorlist/g' /etc/yum.repos.d/CentOS-*"
 
