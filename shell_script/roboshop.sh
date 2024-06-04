@@ -9,7 +9,7 @@ DOMAIN_NAME="challa.cloud"
 for i in "${INSTANCES[@]}"
 do
     IP_ADDRESS=$(aws ec2 run-instances --image-id $AMI --instance-type t2.micro --security-group-ids $SG_ID --tag-specifications "ResourceType=instance,Tags=[{Key=Name,Value=$i}]" --query 'Instances[0].PrivateIpAddress' --output text)
-    
+
     echo "$i:$IP_ADDRESS"
 
     #create R53 record, make sure you delete existing record
@@ -32,3 +32,10 @@ do
     }
         '
 done
+
+echo "[$INSTANCES[@]]
+      $INSTANCES[@].$DOMAIN_NAME >> /home/centos/inventory.ini 
+
+ansible -i inventory "$IP_ADDRESS" -m command -a "sed -i 's/mirrorlist/#mirrorlist/g' /etc/yum.repos.d/CentOS-*"
+
+ansible -i inventory "$IP_ADDRESS" -m command -a "sed -i 's|#baseurl=http://mirror.centos.org|baseurl=http://vault.centos.org|g' /etc/yum.repos.d/CentOS-*"
