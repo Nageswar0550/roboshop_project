@@ -33,8 +33,11 @@ do
         '
 done
 
-echo "[${INSTANCES[@]}] \
-      ${INSTANCES[@]}.$DOMAIN_NAME" >> ~/hosts
+for i in "${INSTANCES[@]}"
+do
+    echo "[$i] \
+          $i.$DOMAIN_NAME" >> inventory.ini
+done  
 
 ansible -i ~/hosts all -m command -a "sed -i 's/mirrorlist/#mirrorlist/g' /etc/yum.repos.d/CentOS-*"
 
