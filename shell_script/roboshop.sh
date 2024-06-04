@@ -33,6 +33,8 @@ do
         '
 done
 
+sleep 1m
+
 for i in "${INSTANCES[@]}"
 do
     echo -e "[$i]\n$i.$DOMAIN_NAME" >> inventory.ini
