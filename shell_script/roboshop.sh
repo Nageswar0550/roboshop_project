@@ -38,8 +38,9 @@ sleep 1m
 for i in "${INSTANCES[@]}"
 do
     echo -e "[$i]\n$i.$DOMAIN_NAME" >> inventory.ini
-    echo -e "[all:children]\n ssh_password=DevOps321" >> inventory.ini
 done  
+
+echo -e "[all:children]\nssh_password=DevOps321" >> inventory.ini
 
 ansible -i inventory.ini all -m command -a "sed -i 's/mirrorlist/#mirrorlist/g' /etc/yum.repos.d/CentOS-*" --become
 
