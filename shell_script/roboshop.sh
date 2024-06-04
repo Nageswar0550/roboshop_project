@@ -35,10 +35,9 @@ done
 
 for i in "${INSTANCES[@]}"
 do
-    echo "[$i] \
-          $i.$DOMAIN_NAME" >> ~/inventory.ini
+    echo -e "[$i]\n$i.$DOMAIN_NAME" >> inventory.ini
 done  
 
-ansible -i ~/inventory.ini all -m command -a "sed -i 's/mirrorlist/#mirrorlist/g' /etc/yum.repos.d/CentOS-*"
+ansible -i inventory.ini all -m command -a "sed -i 's/mirrorlist/#mirrorlist/g' /etc/yum.repos.d/CentOS-*"
 
-ansible -i ~/inventory.ini all -m command -a "sed -i 's|#baseurl=http://mirror.centos.org|baseurl=http://vault.centos.org|g' /etc/yum.repos.d/CentOS-*"
+ansible -i inventory.ini all -m command -a "sed -i 's|#baseurl=http://mirror.centos.org|baseurl=http://vault.centos.org|g' /etc/yum.repos.d/CentOS-*"
