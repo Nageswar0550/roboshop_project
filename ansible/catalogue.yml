@@ -65,3 +65,12 @@
     - name: display product count
       ansible.builtin.debug:
         msg: "product count: {{product_count}}"
+    
+    - name: Loading catalogue data to mongodb
+      command: mongo --host mongodb.challa.cloud < /app/schema/catalogue.ja
+      when: product_count.stdout == 0
+
+    - name: Restarting cacatlogue service
+      service:
+        name: catalogue
+        state: restarted
