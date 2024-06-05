@@ -13,6 +13,11 @@
         path: /usr/share/nginx/html/
         state: absent
 
+    - name: Creating Nginx directory
+      file:
+        path: /usr/share/nginx/html/
+        state: directory
+
     - name: Downloading and unarchiving nginx data
       unarchive:
         src: https://roboshop-builds.s3.amazonaws.com/web.zip
