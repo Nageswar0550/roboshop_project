@@ -29,6 +29,8 @@
 
     - name: Installing dependencies
       command: "npm install"
+      args:
+        chdir: /app
 
     - name: Copying catalogue service file
       copy:
