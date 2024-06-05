@@ -60,3 +60,8 @@
 
     - name: check and get the mongodb catalogue data count
       command: mongo --host mongodb.challa.cloud --quiet --eval 'db = db.getSiblingDB("catalogue"); db.products.count()'
+      register: product_count
+
+    - name: display product count
+      debug:
+        msg: product count: "{{product_count}}"
