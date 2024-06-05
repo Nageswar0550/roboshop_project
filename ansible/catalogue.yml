@@ -57,3 +57,7 @@
         name: mongodb-org-shell
         state: present
         update_cache: yes
+
+    - name: check and get the mongodb catalogue data count
+      command: mongo --host mongodb.challa.cloud --quiet --eval 'db = db.getSiblingDb("catalogue"); db.products.count()'
+      
