@@ -35,7 +35,7 @@
     - name: Copying catalogue service file
       copy:
         src: catalogue.service
-        dest: /etc/systemd/system/catalogue.sevice
+        dest: /etc/systemd/system/catalogue.service
 
     - name: Reloading daemon
       systemd_service:
