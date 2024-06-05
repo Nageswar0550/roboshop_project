@@ -64,4 +64,4 @@
 
     - name: display product count
       debug:
-        msg: product count: "{{product_count}}"
+        msg: "product count: {{product_count}}
