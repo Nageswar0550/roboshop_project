@@ -44,7 +44,7 @@
     - name: Enabling and starting catalogue service
       service:
         name: catalogue
-        state: started
+        state: restarted
         enabled: yes
 
     - name: Copying mongodb repo for installing mongoshell
@@ -57,6 +57,3 @@
         name: mongodb-org-shell
         state: present
         update_cache: yes
-
-    - name: Loading catalogue data to mongodb
-      command: "mongo --host mongodb.challa.cloud </app/schema/catalogue.js"
