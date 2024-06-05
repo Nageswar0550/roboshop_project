@@ -1,0 +1,59 @@
+- name: Installing catalogue for roboshop
+  become: true
+  hosts: catalogue
+  tasks:
+    - name: Disabling and enabling exiting nodejs
+      command: "dnf module disable nodejs -y && dnf module enable nodejs:18 -y"
+
+    - name: Installing Node js
+      package:
+        name: nodejs:18
+        state: present
+        update_cache: yes
+
+    - name: Creating roboshop user
+      user:
+        name: roboshop
+        state: present
+
+    - name: Creating app directory
+      file:
+        path: /app
+        state: directory
+
+    - name: Dowloading and unzipping catalogue data
+      unarchive:
+        src: https://roboshop-builds.s3.amazonaws.com/catalogue.zip
+        dest: /app
+
+    - name: Installing dependencies
+      command: "npm install"
+
+    - name: Copying catalogue service file
+      copy:
+        src: catalogue.service
+        dest: /etc/system/systemd/catalogue.sevice
+
+    - name: Reloading daemon
+      systemd_service:
+        daemon_reload: true
+
+    - name: Enabling and starting catalogue service
+      service:
+        name: catalogue
+        state: started
+        enabled: yes
+
+    - name: Copying mongodb repo for installing mongoshell
+      copy:
+        src: mongodb.repo
+        dest: /etc/yum.repos.d/mongodb.repo
+
+    - name: Installing mongodb-shell
+      package:
+        name: mongodb-org-shell
+        state: present
+        update_cache: yes
+
+    - name: Loading catalogue data to mongodb
+      command: "mongo --host mongodb.challa.cloud </app/schema/catalogue.js"
