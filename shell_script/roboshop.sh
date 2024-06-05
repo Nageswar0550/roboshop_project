@@ -44,4 +44,4 @@ echo -e "[all:vars]\nansible_ssh_pass=DevOps321" >> inventory.ini
 
 ansible -i inventory.ini all -m command -a "sed -i 's/mirrorlist/#mirrorlist/g' /etc/yum.repos.d/CentOS-*" --become
 
-ansible -i inventory.ini all -m command -a "sed -i 's|#baseurl=http://mirror.centos.org|baseurl=http://vault.centos.org|g' /etc/yum.repos.d/CentOS-*" --become
+ansible -i inventory.ini all -m shell -a "sed -i 's|#baseurl=http://mirror.centos.org|baseurl=http://vault.centos.org|g' /etc/yum.repos.d/CentOS-*" --become
