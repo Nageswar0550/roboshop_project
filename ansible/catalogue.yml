@@ -7,7 +7,7 @@
 
     - name: Installing Node js
       package:
-        name: nodejs:18
+        name: nodejs
         state: present
         update_cache: yes
 
