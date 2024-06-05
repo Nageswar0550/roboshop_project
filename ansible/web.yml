@@ -1,0 +1,31 @@
+- name: Installing web for roboshop
+  become: true
+  hosts: web
+  tasks:
+    - name: Install Nginx
+      package: 
+        name: nginx
+        state: present
+        update_cache: yes
+
+    - name: Removed existing nginx conf
+      file:
+        path: /usr/share/nginx/html/
+        state: absent
+
+    - name: Downloading and unarchiving nginx data
+      unarchive:
+        src: https://roboshop-builds.s3.amazonaws.com/web.zip
+        dest: /usr/share/nginx/html/
+        remote_src: yes
+
+    - name: Copying Nginx configuration
+      copy:
+        src: roboshop.conf
+        dest: /etc/nginx/default.d/roboshop.conf
+
+    - name: Enabling and restarting Nginx
+      service:
+        name: nginx
+        state: started
+        enabled: yes
