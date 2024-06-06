@@ -67,6 +67,6 @@
       when: products_count.stdout == "0"
 
     - name: Restarting User service
-        service:
-          name: catalogue
-          state: restarted
+      service:
+        name: catalogue
+        state: restarted
