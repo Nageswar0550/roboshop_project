@@ -66,7 +66,7 @@
       command: mongo --host mongo.challa.cloud < app/schema/user.js
       when: products_count.stdout == "0"
 
-   - name: Restarting User service
-      service:
-        name: catalogue
-        state: restarted
+    - name: Restarting User service
+        service:
+          name: catalogue
+          state: restarted
