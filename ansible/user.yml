@@ -60,11 +60,11 @@
 
     - name: Checking mongodb data
       command: mongo --host mongodb.challa.cloud --quiet --eval 'db = db.getSiblingDB("users"); db = db.users.count()'
-      register: users.count
+      register: users_count
 
     - name: Loading User data to mongodb
       command: mongo --host mongo.challa.cloud < app/schema/user.js
-      when: users.count.stdout == "0"
+      when: users_count.stdout == "0"
 
     - name: Restarting User service
       service:
