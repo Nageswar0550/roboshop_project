@@ -2,5 +2,5 @@
   become: yes
   hosts: "{{component}}"
   roles:
-    - "{{ component }}"
+    - "{{component}}"
   
