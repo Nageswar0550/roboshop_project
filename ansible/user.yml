@@ -41,9 +41,9 @@
       systemd_service:
         daemon_reload: true
 
-    - name: Enabling and starting catalogue service
+    - name: Enabling and starting user service
       service:
-        name: catalogue
+        name: user
         state: restarted
         enabled: yes
 
