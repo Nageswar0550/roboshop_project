@@ -68,5 +68,5 @@
 
     - name: Restarting User service
       service:
-        name: catalogue
+        name: user
         state: restarted
