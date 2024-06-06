@@ -1,0 +1,9 @@
+- name: deamon realod and start
+  ansible.builtin.systemd_service:
+    daemon_reload: true
+
+- name: "start and enable {{component}}"
+  service:
+    name: "{{component}}"
+    state: restarted
+    enabled: yes

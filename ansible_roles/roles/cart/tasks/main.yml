@@ -1,0 +1,9 @@
+- name: Installing Roboshop "{{component}}"
+  import_role:
+    name: common
+    tasks_from: app_setup
+
+- name: restarting service
+  import_role:
+    name: common
+    tasks_from: service

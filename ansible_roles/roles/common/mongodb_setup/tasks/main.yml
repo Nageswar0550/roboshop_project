@@ -1,0 +1,32 @@
+- name: Copying mongodb repo for installing mongoshell
+  copy:
+    src: mongodb.repo
+    dest: /etc/yum.repos.d/mongodb.repo
+
+- name: Installing mongodb-shell
+  package:
+    name: mongodb-org-shell
+    state: present
+    update_cache: yes
+
+- name: check and get the mongodb catalogue data count
+  command: mongo --host mongodb.challa.cloud --quiet --eval 'db = db.getSiblingDB("catalogue"); db.products.count()'
+  register: product_count
+  when: component == catalogue
+
+- name: check and get the mongodb user data count
+  command: mongo --host mongodb.challa.cloud --quiet --eval 'db = db.getSiblingDB("users"); db.users.count()'
+  register: users_count
+  when: component == user
+
+# - name: display product count
+#   ansible.builtin.debug:
+#     msg: "product count: {{product_count}}"
+
+- name: Loading catalogue data to mongodb
+  command: "mongo --host mongodb.challa.cloud < /app/schema/{{component}}.js"
+  when: component == catalogue and product_count.stdout == "0"
+
+- name: Loading catalogue data to mongodb
+  command: "mongo --host mongodb.challa.cloud < /app/schema/{{component}}.js"
+  when: component == user and product_count.stdout == "0"

@@ -1,0 +1,44 @@
+- name: Disabling and enabling exiting nodejs
+  shell: "dnf module disable nodejs -y && dnf module enable nodejs:18 -y"
+
+- name: Installing Node js
+  package:
+    name: nodejs
+    state: present
+    update_cache: yes
+
+- name: Creating roboshop user
+  user:
+    name: roboshop
+    state: present
+
+- name: Creating app directory
+  file:
+    path: /app
+    state: directory
+
+- name: "Dowloading and unzipping {{component}} data"
+  unarchive:
+    src: "https://roboshop-builds.s3.amazonaws.com/{{component}}.zip"
+    dest: /app
+    remote_src: yes
+
+- name: Installing dependencies
+      command: "npm install"
+      args:
+        chdir: /app
+
+    - name: "Copying {{component}} service file"
+      copy:
+        src: "{{component}}.service"
+        dest: "/etc/systemd/system/{{component}}.service"
+
+    - name: Reloading daemon
+      systemd_service:
+        daemon_reload: true
+
+    - name: "Enabling and starting {{component}} service"
+      service:
+        name: "{{component}}"
+        state: restarted
+        enabled: yes
