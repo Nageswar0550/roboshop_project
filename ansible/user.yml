@@ -59,12 +59,12 @@
         update_cache: yes
 
     - name: Checking mongodb data
-      command: mongo --host mongodb.challa.cloud --quiet --eval 'db = db.getSiblingsDB("users"); db = db.products.users()'
-      register: products_count
+      command: mongo --host mongodb.challa.cloud --quiet --eval 'db = db.getSiblingDB("users"); db = db.users.count()'
+      register: users.count
 
     - name: Loading User data to mongodb
       command: mongo --host mongo.challa.cloud < app/schema/user.js
-      when: products_count.stdout == "0"
+      when: users.count.stdout == "0"
 
     - name: Restarting User service
       service:
