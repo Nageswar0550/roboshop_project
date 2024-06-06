@@ -12,12 +12,12 @@
 - name: check and get the mongodb catalogue data count
   command: mongo --host mongodb.challa.cloud --quiet --eval 'db = db.getSiblingDB("catalogue"); db.products.count()'
   register: product_count
-  when: component == catalogue
+  when: component == "catalogue"
 
 - name: check and get the mongodb user data count
   command: mongo --host mongodb.challa.cloud --quiet --eval 'db = db.getSiblingDB("users"); db.users.count()'
   register: users_count
-  when: component == user
+  when: component == "user"
 
 # - name: display product count
 #   ansible.builtin.debug:
