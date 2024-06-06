@@ -1,0 +1,22 @@
+- name: Adding mongodb repo to yum repo
+  copy:
+    src: mongodb.repo
+    dest: /etc/yum.repos.d/mongodb.repo
+
+- name: Installing mongodb
+  package:
+    name: mongodb-org
+    state: present
+    update_cache: yes
+
+- name: Changing mongodb config to allow all
+  replace:
+    path: /etc/mongod.conf
+    regexp: 127.0.0.1
+    replace: 0.0.0.0
+
+- name: Enabling ans atarting mongodb service
+  service:
+    name: mongod
+    enabled: true
+    state: started

@@ -1,0 +1,6 @@
+- name: "Roboshop roles - App {{component}}"
+  become: yes
+  hosts: "{{component}}"
+  roles:
+    - "{{component}}"
+  
