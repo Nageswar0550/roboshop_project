@@ -1,0 +1,29 @@
+- name: Installing redis for Roboshop
+  become: yes
+  hosts: redis
+  tasks:
+    - name: Copying redis repo to yum
+      command: "dnf install https://rpms.remirepo.net/enterprise/remi-release-8.rpm -y && dnf module enable redis:remi-6.2 -y"
+
+    - name: Enabling resis
+      package:
+        name: redis
+        state: present
+        update_cache: yes
+
+    - name: Enabling redis service
+      service:
+        name: redis
+        enabled: yes
+        state: started
+
+    - name: Replacing redis conf
+      replace:
+        path: /etc/redis.conf
+        regexp: 127.0.0.1
+        replace: 0.0.0.0
+
+    - name: Restart redis service
+      service:
+        name: redis
+        state: restarted

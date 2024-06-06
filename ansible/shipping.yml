@@ -1,0 +1,70 @@
+- name: Shipping for roboshop
+  become: yes
+  hosts: shipping
+  vars:
+    mysql_password: "RoboShop@1"
+  tasks:
+    - name: Installing Maven
+      package:
+        name: mvn
+        state: present
+        update_cache: yes
+
+    - name: Creating user
+      user:
+        name: roboshop
+        state: present
+
+    - name: Creating app directory
+      file:
+        name: /app
+        state: directory
+
+    - name: Downloading and unarchiving app data
+      unarchive:
+        src:   https://roboshop-builds.s3.amazonaws.com/shipping.zip
+        dest: /app
+        remote_src: yes
+
+    - name: Installing dependencies
+      shell: mvn clean package
+      args:
+        chdir: /app
+
+    - name: Copying shipping.service file
+      copy:
+        src: shipping.service
+        dest: /etc/systemd/system/shipping.service
+
+    - name: Reloading daemon
+      systemd_service:
+        daemon_reload: true
+
+    - name: Enabling and starting shipping service
+      service:
+        name: shipping
+        state: restarted
+        enabled: yes
+
+    - name: Install mysql client to load data
+      package:
+        name: mysql
+        state: present
+
+    - name: Check schema available or not
+      command: mysql -h mysql.challa.cloud -uroot -p{{mysql_password}} -sN -e "SELECT COUNT(*) FROM INFORMATION_SCHEMA.SCHEMATA WHERE SCHEMA_NAME = 'cities'"
+      register: schema
+
+    - name: print output
+    ansible.builtin.debug:
+      msg: "schema output: {{schema}}"
+
+    - name: load cities data
+      ansible.builtin.shell: "mysql -h mysql.daws76s.online -uroot -p{{mysql_password}}  < /app/schema/shipping.sql"
+      when: schema.stdout != "1"
+
+    - name: start and enable shipping
+      ansible.builtin.service:
+        name: shipping
+        state: restarted
+        enabled: yes

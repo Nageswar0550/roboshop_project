@@ -1,0 +1,28 @@
+- name: Mysql for Roboshop
+  become: true
+  hosts: mysql
+  tasks:
+    - name: Disabling mysql
+      command: dnf module disable mysql -y
+    
+    - name: Adding mysql:5.7 repo to yum
+      copy:
+        src: mysql.repo
+        dest: /etc/yum.repos.d/mysql.repo
+
+    - name: Installing mysql
+      package:
+        name: mysql
+        state: present
+        update_cache: yes
+
+    - name: Enabling and astarting mysql
+      service:
+        name: mysql
+        state: started
+        enabled: true
+
+    - name: Setting Mysql password
+      command: mysql_secure_installation --set-root-pass RoboShop@1
+
+    
