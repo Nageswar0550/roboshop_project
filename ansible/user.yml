@@ -59,7 +59,7 @@
         update_cache: yes
 
     - name: Checking mongodb data
-      command: mongo --host mongodb.challa.cloud --quiet --eval 'db = db.getSiblingDB("users"); db = db.users.count()'
+      command: mongo --host mongodb.challa.cloud --quiet --eval 'db = db.getSiblingDB("users"); db.users.count()'
       register: users_count
 
     - name: Loading User data to mongodb
