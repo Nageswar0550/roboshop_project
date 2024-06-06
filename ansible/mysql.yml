@@ -12,7 +12,7 @@
 
     - name: Installing mysql
       package:
-        name: mysql
+        name: mysql-community-server
         state: present
         update_cache: yes
 
