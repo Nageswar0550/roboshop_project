@@ -24,7 +24,7 @@
     remote_src: yes
 
 - name: Installing dependencies
-      command: "npm install"
+      command: npm install
       args:
         chdir: /app
 
