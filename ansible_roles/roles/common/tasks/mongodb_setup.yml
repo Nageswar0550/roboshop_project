@@ -25,8 +25,8 @@
 
 - name: Loading catalogue data to mongodb
   command: "mongo --host mongodb.challa.cloud < /app/schema/{{component}}.js"
-  when: component == catalogue and product_count.stdout == "0"
+  when: component == "catalogue" and product_count.stdout == "0"
 
 - name: Loading catalogue data to mongodb
   command: "mongo --host mongodb.challa.cloud < /app/schema/{{component}}.js"
-  when: component == user and product_count.stdout == "0"
+  when: component == "user" and users_count.stdout == "0"
