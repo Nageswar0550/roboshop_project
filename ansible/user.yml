@@ -63,7 +63,7 @@
       register: users_count
 
     - name: Loading User data to mongodb
-      command: mongo --host mongo.challa.cloud < app/schema/user.js
+      command: mongo --host mongodb.challa.cloud < app/schema/user.js
       when: users_count.stdout == "0"
 
     - name: Restarting User service
