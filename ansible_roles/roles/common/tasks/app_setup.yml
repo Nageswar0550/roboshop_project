@@ -24,21 +24,21 @@
     remote_src: yes
 
 - name: Installing dependencies
-      command: npm install
-      args:
-        chdir: /app
+    command: npm install
+    args:
+      chdir: /app
 
-    - name: "Copying {{component}} service file"
-      copy:
-        src: "{{component}}.service"
-        dest: "/etc/systemd/system/{{component}}.service"
+- name: "Copying {{component}} service file"
+  copy:
+    src: "{{component}}.service"
+    dest: "/etc/systemd/system/{{component}}.service"
 
-    - name: Reloading daemon
-      systemd_service:
-        daemon_reload: true
+- name: Reloading daemon
+  systemd_service:
+    daemon_reload: true
 
-    - name: "Enabling and starting {{component}} service"
-      service:
-        name: "{{component}}"
-        state: restarted
-        enabled: yes
+- name: "Enabling and starting {{component}} service"
+  service:
+    name: "{{component}}"
+    state: restarted
+    enabled: yes
