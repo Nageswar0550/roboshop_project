@@ -24,9 +24,9 @@
     remote_src: yes
 
 - name: Installing dependencies
-    command: "npm install"
-    args:
-      chdir: /app
+  command: "npm install"
+  args:
+    chdir: /app
 
 - name: "Copying {{component}} service file"
   copy:
