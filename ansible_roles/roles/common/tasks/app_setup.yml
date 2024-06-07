@@ -1,5 +1,7 @@
 - name: Disabling and enabling exiting nodejs
   shell: "dnf module disable nodejs -y && dnf module enable nodejs:18 -y"
+  when: 
+    - component != "shipping" or "payment"
 
 - name: Installing Node js
   package:
