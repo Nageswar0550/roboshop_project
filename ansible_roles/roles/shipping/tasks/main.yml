@@ -1,0 +1,37 @@
+- name: Installing Maven
+  package:
+    name: maven
+    state: present
+    update_cache: yes
+
+- name: app-setup
+  import_role:
+    name: common
+    tasks_from: app_setup
+
+- name: Installing dependencies
+  shell: mvn clean package
+  args:
+    chdir: /app
+
+- name: Install mysql client to load data
+  package:
+    name: mysql
+    state: present
+
+- name: Check schema available or not
+  command: mysql -h mysql.challa.cloud -uroot -p{{mysql_password}} -sN -e "SELECT COUNT(*) FROM INFORMATION_SCHEMA.SCHEMATA WHERE SCHEMA_NAME = 'cities'"
+  register: schema
+
+- name: print output
+  ansible.builtin.debug:
+    msg: "schema output: {{schema}}"
+
+- name: load cities data
+  ansible.builtin.shell: "mysql -h mysql.challa.cloud -uroot -p{{mysql_password}}  < /app/schema/shipping.sql"
+  when: schema.stdout != "1"
+
+- name: Restarting service
+  import_role:
+    name: common
+    tasks_from: service
