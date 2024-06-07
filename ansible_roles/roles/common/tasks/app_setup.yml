@@ -1,13 +1,13 @@
 - name: Disabling and enabling exiting nodejs
   shell: "dnf module disable nodejs -y && dnf module enable nodejs:18 -y"
-  when: component != "shipping" or "payment"
+  when: component != "shipping" or component != "payment"
 
 - name: Installing Node js
   package:
     name: nodejs
     state: present
     update_cache: yes
-  when: component != "shipping" or "payment"
+  when: component != "shipping" or component != "payment"
 
 - name: Creating roboshop user
   user:
@@ -29,7 +29,7 @@
   command: "npm install"
   args:
     chdir: /app
-  when: component != "shipping" or "payment"
+  when: component != "shipping" or component != "payment"
 
 - name: "Copying {{component}} service file"
   copy:
