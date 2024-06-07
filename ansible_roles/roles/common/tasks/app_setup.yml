@@ -6,7 +6,8 @@
     name: nodejs
     state: present
     update_cache: yes
-  when: component != "shipping" and "payment"
+  when: 
+    - component != "shipping" or "payment"
 
 - name: Creating roboshop user
   user:
@@ -28,7 +29,7 @@
   command: "npm install"
   args:
     chdir: /app
-  when: component != "shipping" and "payment"
+  when: component != "shipping" or "payment"
 
 - name: "Copying {{component}} service file"
   copy:
