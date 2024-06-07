@@ -1,0 +1,23 @@
+- name: Install python packages
+  ansible.builtin.dnf:
+    name: "{{item}}" 
+    state: present
+  loop:
+  - python36
+  - gcc
+  - python3-devel
+
+- name: App setup
+  import_role:
+    name: common
+    tasks_from: app_setup
+
+- name: Install dependencies
+  ansible.builtin.command: pip3.6 install -r requirements.txt
+  args:
+    chdir: /app
+
+- name: App setup
+  import_role:
+    name: common
+    tasks_from: service
